@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="1 seconds">
+    <property scope="context" resource="config/log.properties" />
+    <contextName>danteng-info-service</contextName>
+    <jmxConfigurator/>
+    <!-- direct log messages to stdout -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%t] %highlight(%-5p) %green(|-%c{35}:%L) %white - %m %n</pattern>
+        </encoder>
+    </appender>
+
+	<appender name="ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${mobile.loggingRoot}/danteng-info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${mobile.loggingRoot}/%d{yyyy-MM,aux}/danteng-info.log.%d.%i.gz</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}[%t]%-5p %c{36}.%M\(%L\) %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CACHE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${mobile.loggingRoot}/danteng-info-cache.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${mobile.loggingRoot}/%d{yyyy-MM,aux}/danteng-info-cache.log.%d.%i.gz</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}[%t]%-5p %c{36}.%M\(%L\) %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="TIME" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${mobile.loggingRoot}/danteng-info-time.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${mobile.loggingRoot}/%d{yyyy-MM,aux}/danteng-info-time.log.%d.%i.gz</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}[%t]%-5p %c{36}.%M\(%L\) %m%n</pattern>
+		</encoder>
+	</appender>
+	
+    
+	<!-- 定义GuahaoLogger -->
+    <logger name="space.fotf.danteng.services" level="${mobile.loggingLevel}" >  
+        <appender-ref ref="ALL" />  
+    </logger>  
+    
+	<logger name="cache" level="info" >
+		<appender-ref ref="CACHE" />
+	</logger>
+	
+	<!-- time -->
+	<logger name="time" level="info" >  
+        <appender-ref ref="TIME" />  
+    </logger>
+	
+	<!-- 定义Spring日志 -->
+	<logger name="org.springframework" level="${mobile.loggingLevel}" >
+		<appender-ref ref="ALL" />
+	</logger>
+	
+	<root level="${mobile.loggingLevel}">
+        <appender-ref ref="ASYNCConsole"/>
+        <appender-ref ref="ALL"/>
+        <appender-ref ref="ASYNCHttp"/>
+    </root>
+	
+</configuration>

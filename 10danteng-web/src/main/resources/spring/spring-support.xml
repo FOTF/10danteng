@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+        
+        <!--配置变量注入 -->
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>classpath:config/config.properties</value>
+					<!-- <value>classpath*:config/mobile-dao-config.properties</value>
+					<value>classpath*:config/mobile-biz-config.properties</value> -->
+				</list>
+			</property>
+		</bean>
+        
+        <context:component-scan base-package="space.fotf.danteng.services.controllers"></context:component-scan>
+        
+        <!-- Enables the Spring MVC @Controller programming model -->
+        <mvc:annotation-driven/>
+        
+        <import resource="classpath:spring/prop-component.xml"/>
+        <import resource="classpath:spring/interceptor.xml"/>
+        <import resource="classpath*:spring/info-service.xml"/>
+        
+</beans>

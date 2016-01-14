@@ -1,0 +1,4 @@
+2015-12-29 16:03:47[1174361318@qtp-42768293-0]INFO  time.invoke(27) 请求地址是：/info/getMainInfo.json，请求花费时间是：856
+2015-12-29 16:05:07[1174361318@qtp-42768293-0]INFO  time.invoke(27) 请求地址是：/info/getInfoUrl.json，请求花费时间是：131
+2015-12-29 16:05:56[1174361318@qtp-42768293-0]INFO  time.invoke(27) 请求地址是：/info/getInfoUrl.json，请求花费时间是：1
+2015-12-29 16:06:45[1174361318@qtp-42768293-0]INFO  time.invoke(27) 请求地址是：/info/getInfoUrl.json，请求花费时间是：266

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/util
+							http://www.springframework.org/schema/util/spring-util.xsd
+							http://www.springframework.org/schema/jee
+							http://www.springframework.org/schema/jee/spring-jee.xsd
+							http://www.springframework.org/schema/lang
+							http://www.springframework.org/schema/lang/spring-lang.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop.xsd
+							http://www.springframework.org/schema/tx
+							http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 执行时间统计 -->
+	<bean id="performanceInterceptor" class="space.fotf.danteng.services.interceptor.PerformanceInterceptor"/>
+	
+	<!-- 缓存拦截器 -->
+	<bean id="cacheInterceptor" class="space.fotf.danteng.services.interceptor.InfoCacheInterceptor"/>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* space.fotf.danteng.services.controllers..*Controller.*(..))" id="allControllers"/>
+		<aop:pointcut expression="execution(* space.fotf.danteng.services.controllers..*InfoController.*(..))" id="infoControllers"/>
+		<aop:advisor advice-ref="performanceInterceptor" pointcut-ref="allControllers"/>
+		<aop:advisor advice-ref="cacheInterceptor" pointcut-ref="infoControllers"/>
+	</aop:config>
+   
+</beans>
